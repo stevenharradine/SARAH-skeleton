@@ -9,7 +9,7 @@
 		
 		$record = $settingsManager->getRecord ($id);
 
-		$page_title = 'Edit | Settings';
+		$page_title = 'Edit | ' . $app_title;
 
 		// build edit view
 		$editView = new EditView ('Edit', 'update_by_id', $id);

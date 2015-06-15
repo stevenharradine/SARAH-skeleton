@@ -25,7 +25,7 @@
 		
 		$settings_data = $settingsManager->getAllRecords();
 		
-		$page_title = 'Settings';
+		$page_title = $app_title;
 		$alt_menu = '<a href="#" class="add">Add</a>';
 
 		$addView = new AddView ('Add', 'add_setting');
