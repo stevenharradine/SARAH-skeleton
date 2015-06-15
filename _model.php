@@ -1,10 +1,16 @@
 <?php
 	class ApplicationManager {
+		private $table = "`sarah`.`$app_title`";
+		private $table_key = strtoupper ($application_name) . '_ID';
+
 		public function getRecord ($id) {
 			$sql = <<<EOD
-	SELECT *
-	FROM `settings`
-	WHERE `SETTING_ID`='$id'
+	SELECT
+		*
+	FROM
+		$this->table
+	WHERE
+		`$this->table_key`='$id'
 EOD;
 			$data = mysql_query($sql) or die(mysql_error());
 			return mysql_fetch_array( $data );
@@ -12,7 +18,7 @@ EOD;
 
 		public function addRecord ($key, $value) {
 			$sql = <<<EOD
-	INSERT INTO `sarah`.`settings` (
+	INSERT INTO $this->table (
 		`key`,
 		`value`
 	) VALUES (
@@ -26,8 +32,10 @@ EOD;
 
 		public function deleteRecord ($id) {
 			$sql = <<<EOD
-	DELETE FROM `sarah`.`settings`
-	WHERE `SETTING_ID`='$id'
+	DELETE FROM
+		$this->table
+	WHERE
+		`$this->table_key`='$id'
 EOD;
 
 			return mysql_query($sql) or die(mysql_error());
@@ -35,8 +43,10 @@ EOD;
 
 		public function getAllRecords () {
 			$sql = <<<EOD
-	SELECT *
-	FROM `settings`
+	SELECT
+		*
+	FROM
+		$this->table
 EOD;
 			$data = mysql_query($sql) or die(mysql_error());
 
@@ -45,10 +55,13 @@ EOD;
 
 		public function updateRecord ($id, $key, $value) {
 			$sql = <<<EOD
-	UPDATE `sarah`.`settings`
-	SET `key` = '$key',
+	UPDATE
+		$this->table
+	SET
+		`key` = '$key',
 		`value` = '$value'
-	WHERE `SETTING_ID`='$id'
+	WHERE
+		`$this->table_key`='$id'
 EOD;
 			
 			return mysql_query($sql) or die(mysql_error());
